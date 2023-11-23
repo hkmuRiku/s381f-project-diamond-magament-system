@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "description": "project- Diamond ",
+  "author": "Riku Luk",
+  "version": "0.0.1",
+  "dependencies": {
+    "assert": "2.1.0",
+    "body-parser": "*",
+    "cookie-session": "*",
+    "ejs": "*",
+    "express": "*",
+    "init": "0.1.2",
+    "mongodb": "6.3.0",
+    "mongoose": "8.0.1",
+    "session": "0.1.0"
+  },
+  "engine": "node >= 12.0.0",
+  "scripts": {
+    "start": "TZ='Asia/Hong_Kong' node server"
+  }
+}

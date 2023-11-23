@@ -1,0 +1,215 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond Information</title>
+</head>
+<!--  select by = /create /select /update /delete -->
+
+<div>
+<body>
+    <script>
+        async function deleteDiamond(id) {
+            const response = await fetch("/deleteDiamond/"+ id, { method: 'DELETE'});
+            const res = await response.json();
+            //console.log(res);
+        }
+        /*async function editDiamond(id) {
+            const response = await fetch("/editDiamond/"+ id, { method: 'GET'});
+            const res = await response.json();
+        }*/
+    </script>
+    <div>
+            <h1>Diamond Magament System</h1>        <a href="/">
+                <button>Home</button>
+            </a>
+        </div>
+    <form action="/create" method="POST">
+        <label ><b>Diamond ID : </b></label><br>
+            <input type="text" name="diamondID" pattern="[0-9]+" minlength="10" maxlength="10" required><br>
+        <small>Only available for number & must 10 digits</small><br><br>
+        <label ><b>Shape and Cutting Style : </b></label><br>
+        <select name="shape" id="shape-select" required>
+            <option value="Round" selected>Round</option>
+            <option value="Princess">Princess</option>
+            <option value="Oval">Oval</option>
+            <option value="Marquise">Marquise</option>
+            <option value="Pear">Pear</option>
+            <option value="Cushion">Cushion</option>
+            <option value="Emerald">Emerald</option>
+            <option value="Asscher">Asscher</option>
+            <option value="Heart">Heart</option>
+          </select><br><br>
+
+        <label ><b>Carat Weight : </b></label><br>
+            <input type="text" name="carat" pattern="[0-9]*[.,]?[0-9]*" maxlength="4" required><br>
+            <small>e.g. 1.50</small><br><br>
+
+       <label ><b>Color Grade : </b></label><br>
+            <input type="text" name="color" pattern="[A-Z]" maxlength="1"required><br>
+            <small>e.g. D</small><br><br>
+       
+            <label ><b>Clarity Grade : </b></label><br>
+            <select name="clarity" id="clarity-select" required>
+                <option value="F" selected>F</option>
+                <option value="IF">IF</option>
+                <option value="VV1">VV1</option>
+                <option value="VV2">VV2</option>
+                <option value="V1">V1</option>
+                <option value="V2">V2</option>
+                <option value="SI1">SI1</option>
+                <option value="SI2">SI2</option>
+                <option value="I1">I1</option>
+              </select><br><br>
+
+              <label ><b>Cut Grade : </b></label><br>
+            <select name="cut" id="cut-select" required>
+                <option value="Excellent" selected>Excellent</option>
+                <option value="Very Good">Very Good</option>
+                <option value="Good">Good</option>
+                <option value=Fair">Fair</option>
+              </select><br><br>
+
+              <label ><b>Polish : </b></label><br>
+              <select name="polish" id="polish-select" required>
+                  <option value="Excellent" selected>Excellent</option>
+                  <option value="Very Good">Very Good</option>
+                  <option value="Good">Good</option>
+                  <option value=Fair">Fair</option>
+                </select><br><br>
+
+                <label ><b>Symmetry : </b></label><br>
+                <select name="symmetry" id="symmetry-select" required>
+                    <option value="Excellent" selected>Excellent</option>
+                    <option value="Very Good">Very Good</option>
+                    <option value="Good">Good</option>
+                    <option value=Fair">Fair</option>
+                  </select><br><br>
+
+                  <label ><b>Fluorescence : </b></label><br>
+                  <select name="fluorescence" id="fluorescence-select" required>
+                      <option value="Strong" selected>Strong</option>
+                      <option value="Medium">Medium</option>
+                      <option value="Faint">Faint</option>
+                      <option value=None">None</option>
+                    </select><br><br>
+        
+        <label ><b>Price : </b></label><br>
+            $ <input type="text" name="price" pattern="[0-9]+" required><br><br>
+        </p>
+        <input id="create" type="submit" value="Create" />
+        </form> 
+        
+    <form action="/select" method="GET">
+    <label ><b>Diamond ID : </b></label><br>
+    <input type="text" name="selectID" pattern="[0-9]+" minlength="10" maxlength="10">
+    <input id="select" type="submit" value="Select" />
+    <button id="showall" formaction="/crud">Show All</button>
+    <br>
+<small>Only available for number & must 10 digits</small><br><br>
+</form> 
+
+<table border= "1px">
+    <caption><%= countdata %> Diamonds Found</caption>
+    <thead>
+        <tr>
+            <th>Diamond ID</th>
+            <th>Shape</th>
+            <th>Carat</th>
+            <th>Color</th>
+            <th>Clarity</th>
+            <th>CUT</th>
+            <th>Polish</th>
+            <th>Symmetry</th>
+            <th>Fluorescence</th>
+            <th>Price</th>
+            <th colspan="2">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (var i of data){ %>
+        <tr><!--
+            <td><input type="text" name="<%= i.diamondID %>" value="<%= i.diamondID %>" style="width:100px;" readonly></td>
+            <td><select name="<%= i.shape %>" id="shape-select" required>
+                <option value="<%= i.shape %>" ><%= i.shape %></option>
+                <option value="Round" >Round</option>
+                <option value="Princess">Princess</option>
+                <option value="Oval">Oval</option>
+                <option value="Marquise">Marquise</option>
+                <option value="Pear">Pear</option>
+                <option value="Cushion">Cushion</option>
+                <option value="Emerald">Emerald</option>
+                <option value="Asscher">Asscher</option>
+                <option value="Heart">Heart</option>
+              </select></td>
+            <td><input type="text" name="<%= i.carat %>" value="<%= i.carat %>" pattern="[0-9]*[.,]?[0-9]*" maxlength="4" style="width:60px;" required></td>
+            <td><input type="text" name="<%= i.color %>" value="<%= i.color %>" pattern="[A-Z]" maxlength="1" style="width:50px;" required></td>
+            <td><select name="<%= i.clarity %>"  id="clarity-select" required>
+                <option value="<%= i.clarity %>"><%= i.clarity %></option>
+                <option value="F">F</option>
+                <option value="IF">IF</option>
+                <option value="VV1">VV1</option>
+                <option value="VV2">VV2</option>
+                <option value="V1">V1</option>
+                <option value="V2">V2</option>
+                <option value="SI1">SI1</option>
+                <option value="SI2">SI2</option>
+                <option value="I1">I1</option>
+              </select></td>
+            <td><select name="<%= i.cut %>" id="cut-select" required>
+                <option value="<%= i.cut %>" ><%= i.cut %></option>
+                <option value="Excellent" >Excellent</option>
+                <option value="Very Good">Very Good</option>
+                <option value="Good">Good</option>
+                <option value=Fair">Fair</option>
+              </select></td>
+            <td><select name="<%= i.polish %>" id="polish-select" required>
+                <option value="<%= i.polish %>" ><%= i.polish %></option>
+                <option value="Excellent" >Excellent</option>
+                <option value="Very Good">Very Good</option>
+                <option value="Good">Good</option>
+                <option value=Fair">Fair</option>
+              </select></td>
+            <td><select name="<%= i.symmetry %>" id="symmetry-select" required>
+                <option value="<%= i.symmetry %>" ><%= i.symmetry %></option>
+                <option value="Excellent" >Excellent</option>
+                <option value="Very Good">Very Good</option>
+                <option value="Good">Good</option>
+                <option value=Fair">Fair</option>
+              </select></td>
+            <td><select name="fluorescence" name="<%= i.fluorescence %>" id="fluorescence-select" required>
+                <option value="<%= i.fluorescence %>" ><%= i.fluorescence %></option>
+                <option value="Strong" >Strong</option>
+                <option value="Medium">Medium</option>
+                <option value="Faint">Faint</option>
+                <option value=None">None</option>
+              </select></td>
+            <td>$<input type="text" name="<%= i.price %>" value="<%= i.price %>" pattern="[0-9]+" style="width:70px;"required></td>-->
+            <td><%= i.diamondID %></td>
+            <td><%= i.shape %></td>
+            <td><%= i.carat %> k</td>
+            <td><%= i.color %></td>
+            <td><%= i.clarity %></td>
+            <td><%= i.cut %></td>
+            <td><%= i.polish %></td>
+            <td><%= i.symmetry %></td>
+            <td><%= i.fluorescence %></td>
+            <td>$ <%= i.price %></td>-
+            <!--<td><button id="delete" onclick="deleteDiamond(<%= i._id%>)">Delete</button></td>-->
+            <td><button onclick="location.href='/edit?_id=<%= i._id %>'" style="width:60px;">Edit</button></td>
+            <td><button id="delete" onclick="deleteDiamond(<%= JSON.stringify(i._id) %>)"style="width:60px;">Delete</button></td>
+            <!--<td><button id="delete" onclick="deleteDiamond(<%= i.diamondID%>)">Delete</button></td>-->
+            <!--<td><a href="/delete?_id=<%= i._id %>">Delete</a></td>-->
+        </tr>
+        <% } %>
+    </tbody>
+</table>
+
+
+
+    </body>
+    
+</div>
+</html>
