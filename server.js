@@ -45,7 +45,8 @@ app.get("/", (req, res) => {
   }
 });
 app.get("/login", (req, res) => {
-  res.status(200).render("login");
+  console.log("Welcome");
+  return res.status(200).render("login");
 });
 app.get("/crud", async (req, res) => {
   try {
@@ -75,7 +76,7 @@ app.post("/login", async (req, res) => {
       console.log("Login");
       console.log("User : " + req.session.username + "\nDate : " + Date());
       console.log("----------------------------------------------");
-      res.redirect("/");
+      return res.redirect("/");
     } else {
       //mongoose.connection.close();
       res.send("incorrect password");
@@ -215,11 +216,11 @@ app.delete("/deleteDiamond/:id", async (req, res) => {
 /*Delete part*/
 /*Logout part*/
 app.get("/logout", (req, res) => {
-  console.log("Logout");
   console.log("User : " + req.session.username + "\nDate : " + Date());
   console.log("----------------------------------------------");
   req.session = null;
-  res.redirect("/");
+  req.authenticated = false;
+  return res.redirect("/");
 });
 /*Logout part*/
 app.listen(port);
